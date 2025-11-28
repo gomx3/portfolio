@@ -1,0 +1,16 @@
+---
+import BlogPosts from '../components/blog/BlogPosts.astro'
+import BlogExternalLink from '../components/blog/BlogExternalLink.astro'
+
+import { BLOG } from '../constants'
+---
+
+<section id="blog" class="min-h-screen flex flex-col justify-center items-center py-20">
+    <h2 class="mb-2 text-lg font-bold text-theme text-center">블로그</h2>
+    <p class="mb-14 text-center text-2xl font-bold whitespace-pre-line">
+        {`블로그에 배운 것들을 기록하고\n 트러블 슈팅을 공유합니다.`}
+    </p>
+
+    <BlogPosts blog={BLOG} />
+    <BlogExternalLink link={BLOG.link} />
+</section>

@@ -1,0 +1,11 @@
+---
+import { TitlePlayground } from './TitlePlayground'
+---
+
+<header id="home" class="h-screen flex flex-col justify-center items-center text-center px-4">
+    <TitlePlayground client:only="react" />
+
+    <div class="absolute bottom-10 animate-bounce">
+        <span class="text-neutral-500">Scroll Down ↓</span>
+    </div>
+</header>

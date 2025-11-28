@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+@import './fonts.css';
+
+:root {
+    --background: #fcfcfc;
+    --foreground: #222222;
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-pretendard), sans-serif;
+    min-width: 360px;
+    letter-spacing: -0.45px;
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+
+@theme {
+    --font-pretendard: 'Pretendard';
+
+    --color-base-black: '#222222';
+
+    --color-primary-50: #fcfff5;
+    --color-primary-100: #edfdc5;
+    --color-primary-200: #ddf998;
+    --color-primary-300: #cdf270;
+    --color-primary-400: #bee950;
+    --color-primary-500: #aedd38;
+    --color-primary-600: #93cd27;
+    --color-primary-700: #8bb81b;
+    --color-primary-800: #78a013;
+    --color-primary-900: #65870e;
+
+    --color-theme: var(--theme-color);
+
+    --breakpoint-desktop: 1024px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-mobile: 360px;
+}
