@@ -1,0 +1,13 @@
+---
+import SectionHeader from '../SectionHeader.astro'
+import BlogExternalLink from './BlogExternalLink.astro'
+import BlogPosts from './BlogPosts.astro'
+
+import { BLOG } from '../../constants'
+---
+
+<section id="blog" class="min-h-screen flex flex-col justify-center items-center py-20 px-4">
+    <SectionHeader title={BLOG.title} description={BLOG.description} />
+    <BlogPosts />
+    <BlogExternalLink link={BLOG.link} />
+</section>

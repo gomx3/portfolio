@@ -1,0 +1,16 @@
+---
+import StackGroup from './StackGroup.astro'
+
+import { STACK } from '../../constants'
+---
+
+<div class="grid grid-cols-1 gap-2 max-w-lg w-full">
+    {
+        STACK.list.map((group) => (
+            <div class="p-4">
+                <h3 class="mb-3 text-center text-neutral-500">{group.label}</h3>
+                <StackGroup stacks={group} />
+            </div>
+        ))
+    }
+</div>

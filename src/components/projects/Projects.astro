@@ -1,0 +1,11 @@
+---
+import ProjectList from './ProjectList.astro'
+import SectionHeader from '../SectionHeader.astro'
+
+import { PROJECTS } from '../../constants'
+---
+
+<section id="projects" class="min-h-screen flex flex-col justify-center items-center py-20">
+    <SectionHeader title={PROJECTS.title} description={PROJECTS.description} />
+    <ProjectList />
+</section>

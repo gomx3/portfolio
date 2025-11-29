@@ -1,9 +1,9 @@
 import { useGSAP } from '@gsap/react'
-import { HERO } from '../constants'
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { Draggable } from 'gsap/all'
 import { GradientName } from './GradientName'
+import { HERO } from '../../constants'
 
 const colors = [
     ['#8BB81B', '#BEE950'],
@@ -77,10 +77,30 @@ export const TitlePlayground = () => {
             <div className="img-group">
                 <p className="text-center text-neutral-400 mb-6">( 물감을 이름에 드래그하면 색을 바꿀 수 있습니다 )</p>
                 <div className="flex flex-row gap-3 tablet:gap-6 justify-center">
-                    <img alt="" data-speed="1.25" src="/assets/item_k.png" className='w-[4.325rem] h-[4.325rem] tablet:w-auto tablet:h-auto' />
-                    <img alt="" data-speed="0.8" src="/assets/item_i.png" className='w-[1.813rem] h-[4.325rem] tablet:w-auto tablet:h-auto' />
-                    <img alt="" data-speed="1" src="/assets/item_w.png" className='w-24 h-[4.325rem] tablet:w-auto tablet:h-auto' />
-                    <img alt="" data-speed="1.2" src="/assets/item_e.png" className='w-14 h-[4.325rem] tablet:w-auto tablet:h-auto' />
+                    <img
+                        alt="도형 K"
+                        data-speed="1.25"
+                        src="/assets/item_k.png"
+                        className="w-[4.325rem] h-[4.325rem] tablet:w-auto tablet:h-auto"
+                    />
+                    <img
+                        alt="도형 I"
+                        data-speed="0.8"
+                        src="/assets/item_i.png"
+                        className="w-[1.813rem] h-[4.325rem] tablet:w-auto tablet:h-auto"
+                    />
+                    <img
+                        alt="도형 W"
+                        data-speed="1"
+                        src="/assets/item_w.png"
+                        className="w-24 h-[4.325rem] tablet:w-auto tablet:h-auto"
+                    />
+                    <img
+                        alt="도형 E"
+                        data-speed="1.2"
+                        src="/assets/item_e.png"
+                        className="w-14 h-[4.325rem] tablet:w-auto tablet:h-auto"
+                    />
                 </div>
             </div>
         </div>

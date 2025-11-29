@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets'
+import { techLogoMap } from '../../logomap'
+import TechLogo from '../TechLogo.astro'
+import { X } from 'lucide-react'
+import FlowerFigure from '../FlowerFigure.astro'
+import type { ProjectDoc } from './ProjectCard.astro'
+
+interface Props extends ProjectDoc {
+    modalId: string
+}
+
+const { modalId, title, description, techStack, team, period, links, image } = Astro.props
+---
+
+<dialog
+    id={modalId}
+    class="fixed inset-0 z-50 m-auto rounded-md backdrop:bg-black/30 shadow-2xl max-w-2xl w-[90%] open:dialog-open"
+>
+    <div class="p-10 bg-neutral-50">
+        <div class="flex justify-between items-start text-theme mb-4">
+            <FlowerFigure size="36" />
+            <form method="dialog">
+                <button class="text-neutral-400 focus:outline-none cursor-pointer">
+                    <X />
+                </button>
+            </form>
+        </div>
+
+        <h3 class="text-xl tablet:text-2xl font-medium">{title}</h3>
+
+        <div class="pt-8">
+            <h4 class="mb-1 text-sm text-neutral-500">프로젝트 설명</h4>
+            <p class="text-neutral-800">{description}</p>
+        </div>
+
+        <div class="pt-8">
+            <h4 class="mb-1 text-sm text-neutral-500">사용 기술</h4>
+            <div class="flex flex-wrap gap-2">
+                {
+                    techStack.map((tech) => {
+                        const logo = techLogoMap[tech]
+                        if (!logo) return null
+                        return <TechLogo src={logo.src} name={logo.name} size="sm" />
+                    })
+                }
+            </div>
+        </div>
+
+        <div class="flex flex-row flex-wrap pt-8 gap-8">
+            <div>
+                <h4 class="mb-1 text-sm text-neutral-500">참여 인원</h4>
+                <p class="text-neutral-800">{team}</p>
+            </div>
+
+            <div>
+                <h4 class="mb-1 text-sm text-neutral-500">기간</h4>
+                <p class="text-neutral-800">{period}</p>
+            </div>
+
+            <div>
+                <h4 class="mb-1 text-sm text-neutral-500">관련 링크</h4>
+                <a
+                    href={links?.github?.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="border-b text-neutral-800 mr-2">{links?.github?.name}</a
+                >
+                <a href={links?.demo?.url} target="_blank" rel="noopener noreferrer" class="border-b text-neutral-800"
+                    >{links?.demo?.name}</a
+                >
+            </div>
+        </div>
+
+        <hr class="my-10 border-neutral-200" />
+
+        <div class="prose prose-neutral prose-headings:font-medium">
+            <slot />
+        </div>
+
+        <hr class="my-10 border-neutral-200" />
+
+        <Image
+            src={image.url}
+            alt={image.alt}
+            width={1500}
+            height={900}
+            class="w-full h-auto rounded-lg mt-6 border border-neutral-200"
+        />
+    </div>
+    <form method="dialog" class="w-full h-full absolute top-0 left-0 -z-10 cursor-default"></form>
+</dialog>
+
+<script>
+    const dialogs = document.querySelectorAll('dialog')
+    dialogs.forEach((dialog) => {
+        dialog.addEventListener('click', (e) => {
+            if (e.target === dialog) {
+                dialog.close()
+            }
+        })
+        dialog.addEventListener('close', () => {
+            document.body.classList.remove('overflow-hidden')
+        })
+    })
+</script>

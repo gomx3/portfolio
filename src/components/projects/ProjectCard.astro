@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets'
+import { techLogoMap } from '../../logomap'
+import TechLogo from '../TechLogo.astro'
+import ProjectModal from './ProjectModal.astro'
+import { SquareArrowOutUpRight } from 'lucide-react'
+
+interface Link {
+    url: string
+    name: string
+}
+
+export interface ProjectDoc {
+    title: string
+    description: string
+    techStack: string[]
+    team: string
+    period: string
+    links?: {
+        github?: Link
+        demo?: Link
+    }
+    image: {
+        url: string
+        alt: string
+    }
+}
+
+interface Props extends ProjectDoc {}
+
+const { title, description, techStack, team, period, links, image } = Astro.props
+
+const uniqueId = `modal-${Math.random().toString(36).slice(2, 11)}`
+---
+
+<div class="project-card-container group">
+    <article class="max-w-sm cursor-pointer transition-transform hover:-translate-y-1" data-modal-target={uniqueId}>
+        <div class="relative">
+            <Image
+                src={image.url}
+                alt={image.alt}
+                width={1500}
+                height={900}
+                class="w-full max-w-96 h-56 mb-3 overflow-hidden object-cover rounded-xl border border-neutral-200 transition-all duration-300 group-hover:brightness-50"
+            />
+            <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            >
+                <SquareArrowOutUpRight className="text-neutral-50" />
+            </div>
+        </div>
+        <h3 class="mb-3 text-xl font-medium text-base-black">{title}</h3>
+        <p class="text-neutral-400">{description}</p>
+        <div class="flex flex-wrap gap-2 mt-3 pr-10">
+            {
+                techStack.map((tech) => {
+                    const logo = techLogoMap[tech]
+                    if (!logo) return null
+                    return <TechLogo src={logo.src} name={logo.name} size="sm" />
+                })
+            }
+        </div>
+    </article>
+
+    <ProjectModal
+        modalId={uniqueId}
+        title={title}
+        description={description}
+        techStack={techStack}
+        team={team}
+        period={period}
+        links={links}
+        image={image}
+    >
+        <slot />
+    </ProjectModal>
+</div>
+
+<script>
+    const cards = document.querySelectorAll('.project-card-container article')
+
+    cards.forEach((card) => {
+        card.addEventListener('click', () => {
+            const modalId = (card as HTMLElement).dataset.modalTarget
+            const dialog = document.getElementById(modalId!) as HTMLDialogElement
+
+            if (dialog) {
+                dialog.showModal()
+                document.body.classList.add('overflow-hidden')
+            }
+        })
+    })
+</script>

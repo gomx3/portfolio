@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content'
+import ProjectCard from './ProjectCard.astro'
+
+const allProjects = await getCollection('projects')
+---
+
+<div class="grid grid-cols-1 tablet:grid-cols-3 justify-items-center gap-12 tablet:gap-6 max-w-5xl w-full px-2">
+    {
+        await Promise.all(
+            allProjects.map(async (p) => {
+                const { Content } = await render(p)
+
+                return (
+                    <ProjectCard
+                        title={p.data.title}
+                        description={p.data.description}
+                        techStack={p.data.techStack}
+                        team={p.data.team}
+                        period={p.data.period}
+                        links={p.data.links}
+                        image={p.data.image}
+                    >
+                        <Content />
+                    </ProjectCard>
+                )
+            })
+        )
+    }
+</div>

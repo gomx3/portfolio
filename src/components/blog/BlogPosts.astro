@@ -1,30 +1,17 @@
 ---
-interface BlogPost {
-    title: string
-    link: string
-    pubDate: string
-    thumbnail: string
-}
-
-interface Props {
-    blog: {
-        posts: BlogPost[]
-    }
-}
-
-const { blog } = Astro.props
+import { BLOG } from '../../constants'
 ---
 
-<div class="grid gap-6 max-w-lg w-full mb-10">
+<div class="grid gap-6 max-w-sm tablet:max-w-lg w-full mb-10">
     {
-        blog.posts.map((post) => (
+        BLOG.posts.map((post) => (
             <a href={post.link} target="_blank" rel="noopener noreferrer" class="flex flex-row gap-4 group">
                 <div class="flex flex-col gap-2 flex-1">
-                    <h3 class="text-xl font-medium text-base-black line-clamp-2">{post.title}</h3>
+                    <h3 class="text-lg tablet:text-xl font-medium text-base-black line-clamp-2">{post.title}</h3>
                     <p class="text-neutral-400">{post.pubDate}</p>
                 </div>
 
-                <div class="w-40 h-28 rounded-xl overflow-hidden">
+                <div class="w-24 h-24 tablet:w-40 tablet:h-28 rounded-xl overflow-hidden">
                     <img
                         src={post.thumbnail}
                         alt={post.title}
