@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content'
 import ProjectCard from './ProjectCard.astro'
 
-const allProjects = await getCollection('projects')
+const allProjects = (await getCollection('projects')).sort((a, b) => a.data.id.valueOf() - b.data.id.valueOf())
 const initialProjects = allProjects.slice(0, 3)
 const moreProjects = allProjects.slice(3)
 ---

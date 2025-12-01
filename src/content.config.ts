@@ -4,6 +4,7 @@ import { z, defineCollection } from 'astro:content'
 const projects = defineCollection({
     loader: glob({ pattern: '**/[^_]*.mdx', base: './src/content/projects' }),
     schema: z.object({
+        id: z.number(),
         title: z.string(),
         description: z.string(),
         techStack: z.array(z.string()),
