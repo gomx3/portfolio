@@ -3,7 +3,6 @@ import { Image } from 'astro:assets'
 import { techLogoMap } from '../../logomap'
 import TechLogo from '../TechLogo.astro'
 import { X } from 'lucide-react'
-import FlowerFigure from '../FlowerFigure.astro'
 import type { ProjectDoc } from './ProjectCard.astro'
 
 interface Props extends ProjectDoc {
@@ -17,16 +16,14 @@ const { modalId, title, description, techStack, team, period, links, image } = A
     id={modalId}
     class="fixed inset-0 z-50 m-auto rounded-md backdrop:bg-black/30 shadow-2xl max-w-2xl w-[90%] open:dialog-open"
 >
-    <div class="p-6 tablet:p-10 bg-neutral-50">
-        <div class="flex justify-between items-start text-theme mb-4">
-            <FlowerFigure size="36" />
-            <form method="dialog">
-                <button class="text-neutral-400 focus:outline-none cursor-pointer">
-                    <X />
-                </button>
-            </form>
-        </div>
+    <Image src={image.url} alt={image.alt} width={1500} height={900} class="w-full h-64 object-cover" />
+    <form method="dialog" class="absolute top-3 right-3">
+        <button class="p-1 backdrop-blur-2xl rounded-full text-neutral-50 focus:outline-none cursor-pointer">
+            <X />
+        </button>
+    </form>
 
+    <div class="p-6 tablet:py-8 tablet:px-10 bg-neutral-50">
         <h3 class="text-xl tablet:text-2xl font-medium">{title}</h3>
 
         <div class="pt-8">
@@ -60,33 +57,40 @@ const { modalId, title, description, techStack, team, period, links, image } = A
 
             <div>
                 <h4 class="mb-1 text-sm text-neutral-500">관련 링크</h4>
-                <a
-                    href={links?.github?.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="border-b text-neutral-800 mr-2">{links?.github?.name}</a
-                >
-                <a href={links?.demo?.url} target="_blank" rel="noopener noreferrer" class="border-b text-neutral-800"
-                    >{links?.demo?.name}</a
-                >
+                {
+                    links?.github && (
+                        <a
+                            href={links?.github?.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="border-b text-neutral-800 mr-2"
+                        >
+                            {links?.github?.name}
+                        </a>
+                    )
+                }
+                {
+                    links?.demo && (
+                        <a
+                            href={links?.demo?.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="border-b text-neutral-800 mr-2"
+                        >
+                            {links?.demo?.name}
+                        </a>
+                    )
+                }
             </div>
         </div>
 
         <hr class="my-10 border-neutral-200" />
 
-        <div class="prose prose-neutral prose-headings:font-medium">
+        <div
+            class="prose prose-neutral prose-headings:font-medium prose-img:rounded-lg prose-img:mx-auto prose-img:w-full prose-img:max-w-md"
+        >
             <slot />
         </div>
-
-        <hr class="my-10 border-neutral-200" />
-
-        <Image
-            src={image.url}
-            alt={image.alt}
-            width={1500}
-            height={900}
-            class="w-full h-auto rounded-lg mt-6 border border-neutral-200"
-        />
     </div>
     <form method="dialog" class="w-full h-full absolute top-0 left-0 -z-10 cursor-default"></form>
 </dialog>

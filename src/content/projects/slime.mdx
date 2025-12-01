@@ -1,0 +1,36 @@
+---
+title: '인터랙티브 3D 웹 토이 개발'
+description: 'Three.js와 R3F(React-Three-Fiber)를 활용해 사용자가 실시간으로 3D 객체의 물성을 조작하는 인터랙티브 웹 애플리케이션입니다. 정적인 웹을 넘어 사용자와 몰입감 있게 소통하는 3D 웹 경험을 구현하고자 했습니다.'
+techStack: ['React', 'Vite', 'TypeScript', 'Jotai', 'Three.js', 'Chakra UI']
+team: '개인 프로젝트'
+period: '2025.05'
+links:
+    github:
+        name: GitHub
+        url: 'https://github.com/gomx3/make-your-own-slime'
+    demo:
+        name: 'demo'
+        url: 'https://your-slime.vercel.app/'
+image:
+    url: '/assets/images/slime/thumbnail.png'
+    alt: 'make-your-onw-slime 썸네일'
+---
+
+### 기여 역할
+
+    - Three.js & R3F 기반의 3D 렌더링 환경 구축: Scene, Camera, Light 등 3D 필수 요소를 React 컴포넌트 방식으로 모듈화하여 설계
+    - 실시간 인터랙션 로직 구현: 사용자의 마우스 움직임과 컨트롤러 입력값을 3D 객체의 Mesh 형태 변형에 실시간 반영
+    - 상태 관리 최적화: Jotai를 활용해 컨트롤러의 UI 상태(DOM)와 Canvas 내부 3D 객체 상태(WebGL) 간의 효율적인 동기화
+
+### 문제점 & 해결 방법
+
+    1. **수학적 연산을 통한 유기적인 3D 애니메이션 구현**
+        - **배경**: 단순히 객체를 회전시키는 것을 넘어, 슬라임처럼 울렁거리고 표면이 솟아오르는 유기적인 질감 표현이 필요했습니다.
+        - **해결**: useFrame 훅을 사용하여 매 프레임마다 Mesh의 정점(Vertex) 위치를 수학적 함수(Sin, Cos)와 노이즈 알고리즘으로 재계산하는 로직을 작성했습니다.
+            - 시간(clock)과 사용자 입력값(spikes, process)을 변수로 받아 각 정점의 위치를 동적으로 치환함으로써, 마치 살아있는 듯한 물결 효과를 구현했습니다.
+        - **결과**: 사용자의 조작에 따라 부드럽게 형태가 변형되는 고품질의 3D 인터랙션을 프레임 저하 없이 구현했습니다.
+
+### 배운 점
+
+    - 2D 화면이 아닌 3차원 공간에서의 좌표계, 조명, 재질(Material)이 어떻게 웹 브라우저에 렌더링 되는지 깊이 있게 학습했습니다.
+    - 일반적인 DOM 조작을 넘어, 웹 기술로 구현할 수 있는 시각적 경험의 한계를 넓혔습니다. 새로운 기술 스택(Three.js)을 스스로 학습하고 적용하는 과정을 통해 "새로운 기술을 학습하고 러닝 커브를 두려워하지 않는 개발자"로서의 자신감을 얻었습니다.

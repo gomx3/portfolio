@@ -50,7 +50,7 @@ const uniqueId = `modal-${Math.random().toString(36).slice(2, 11)}`
             </div>
         </div>
         <h3 class="mb-3 text-xl font-medium text-base-black">{title}</h3>
-        <p class="text-neutral-400">{description}</p>
+        <p class="text-neutral-400 line-clamp-4">{description}</p>
         <div class="flex flex-wrap gap-2 mt-3 pr-10">
             {
                 techStack.map((tech) => {

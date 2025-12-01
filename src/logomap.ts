@@ -12,6 +12,7 @@ export const techLogoMap: Record<string, { src: string; name: string }> = {
     Jotai: { src: '/assets/logos/jotai.png', name: 'Jotai' },
     'Tanstack Query': { src: '/assets/logos/tanstackquery.webp', name: 'Tanstack Query' },
     'Chart.js': { src: '/assets/logos/chartjs.svg', name: 'Chart.js' },
+    'Chakra UI': { src: '/assets/logos/chakraui.svg', name: 'Chakra UI'},
     'Three.js': { src: '/assets/logos/three.svg', name: 'Three.js' },
     Motion: { src: '/assets/logos/motion.png', name: 'Motion' },
     GSAP: { src: '/assets/logos/gsap.svg', name: 'GSAP' },

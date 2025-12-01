@@ -3,14 +3,17 @@ import { getCollection, render } from 'astro:content'
 import ProjectCard from './ProjectCard.astro'
 
 const allProjects = await getCollection('projects')
+const initialProjects = allProjects.slice(0, 3)
+const moreProjects = allProjects.slice(3)
 ---
 
-<div class="grid grid-cols-1 tablet:grid-cols-3 justify-items-center gap-12 tablet:gap-6 max-w-5xl w-full px-2">
+<div
+    class="grid grid-cols-1 tablet:grid-cols-3 justify-items-center gap-12 tablet:gap-x-6 tablet:gap-y-10 max-w-5xl w-full px-2"
+>
     {
         await Promise.all(
-            allProjects.map(async (p) => {
+            initialProjects.map(async (p) => {
                 const { Content } = await render(p)
-
                 return (
                     <ProjectCard
                         title={p.data.title}
@@ -27,4 +30,83 @@ const allProjects = await getCollection('projects')
             })
         )
     }
+
+    {
+        await Promise.all(
+            moreProjects.map(async (p) => {
+                const { Content } = await render(p)
+                return (
+                    <div class="hidden-project hidden w-full opacity-0 transition-opacity duration-500 ease-in-out">
+                        <ProjectCard
+                            title={p.data.title}
+                            description={p.data.description}
+                            techStack={p.data.techStack}
+                            team={p.data.team}
+                            period={p.data.period}
+                            links={p.data.links}
+                            image={p.data.image}
+                        >
+                            <Content />
+                        </ProjectCard>
+                    </div>
+                )
+            })
+        )
+    }
 </div>
+
+{
+    moreProjects.length > 0 && (
+        <div class="flex justify-center mt-10 w-full">
+            <button
+                id="loadMoreBtn"
+                class="px-4 py-2 font-medium rounded-xl text-neutral-50 bg-neutral-900 hover:bg-neutral-800 transition-colors duration-200 cursor-pointer"
+            >
+                더보기
+            </button>
+
+            <button
+                id="collapseBtn"
+                class="hidden px-4 py-2 font-medium rounded-xl text-neutral-800 bg-neutral-200 hover:bg-neutral-300 transition-colors duration-200 cursor-pointer"
+            >
+                접기
+            </button>
+        </div>
+    )
+}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loadMoreBtn = document.getElementById('loadMoreBtn')
+        const collapseBtn = document.getElementById('collapseBtn')
+        const hiddenProjects = document.querySelectorAll('.hidden-project')
+
+        if (!loadMoreBtn || !collapseBtn) return
+
+        loadMoreBtn.addEventListener('click', () => {
+            hiddenProjects.forEach((el, index) => {
+                el.classList.remove('hidden')
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        el.classList.remove('opacity-0')
+                    }, index * 50)
+                })
+            })
+
+            loadMoreBtn.classList.add('hidden')
+            collapseBtn.classList.remove('hidden')
+        })
+
+        collapseBtn.addEventListener('click', () => {
+            hiddenProjects.forEach((el) => {
+                el.classList.add('hidden')
+                el.classList.add('opacity-0')
+            })
+
+            collapseBtn.classList.add('hidden')
+            loadMoreBtn.classList.remove('hidden')
+
+            loadMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        })
+    })
+</script>
