@@ -2,8 +2,9 @@
 import { Image } from 'astro:assets'
 import { techLogoMap } from '../../logomap'
 import TechLogo from '../TechLogo.astro'
-import { X } from 'lucide-react'
+import { X, ZoomIn } from 'lucide-react' // ZoomIn 아이콘은 선택사항입니다
 import type { ProjectDoc } from './ProjectCard.astro'
+import ImageModal from './ImageModal.astro'
 
 interface Props extends ProjectDoc {
     modalId: string
@@ -14,11 +15,13 @@ const { modalId, title, description, techStack, team, period, links, image } = A
 
 <dialog
     id={modalId}
-    class="fixed inset-0 z-50 m-auto rounded-md backdrop:bg-black/30 shadow-2xl max-w-2xl w-[90%] open:dialog-open"
+    class="project-modal fixed inset-0 z-50 m-auto rounded-md backdrop:bg-black/30 shadow-2xl max-w-2xl w-[90%] open:dialog-open outline-none"
 >
     <Image src={image.url} alt={image.alt} width={1500} height={900} class="w-full h-56 object-cover" />
     <form method="dialog" class="absolute top-3 right-3">
-        <button class="p-1 backdrop-blur-2xl rounded-full text-neutral-300 focus:outline-none cursor-pointer">
+        <button
+            class="p-1 backdrop-blur-2xl rounded-full text-neutral-300 focus:outline-none cursor-pointer hover:bg-black/20 transition-colors"
+        >
             <X />
         </button>
     </form>
@@ -63,7 +66,7 @@ const { modalId, title, description, techStack, team, period, links, image } = A
                             href={links?.github?.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="border-b text-neutral-800 mr-2"
+                            class="border-b text-neutral-800 mr-2 hover:text-neutral-500 transition-colors"
                         >
                             {links?.github?.name}
                         </a>
@@ -75,7 +78,7 @@ const { modalId, title, description, techStack, team, period, links, image } = A
                             href={links?.demo?.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="border-b text-neutral-800 mr-2"
+                            class="border-b text-neutral-800 mr-2 hover:text-neutral-500 transition-colors"
                         >
                             {links?.demo?.name}
                         </a>
@@ -87,24 +90,53 @@ const { modalId, title, description, techStack, team, period, links, image } = A
         <hr class="my-10 border-neutral-200" />
 
         <div
-            class="prose prose-neutral prose-headings:font-medium prose-img:rounded-lg prose-img:mx-auto prose-img:w-full prose-img:max-w-md"
+            class="prose prose-neutral prose-headings:font-medium prose-img:rounded-lg prose-img:mx-auto prose-img:w-full prose-img:max-w-md prose-img:cursor-zoom-in"
         >
             <slot />
         </div>
     </div>
-    <form method="dialog" class="w-full h-full absolute top-0 left-0 -z-10 cursor-default"></form>
+
+    <form method="dialog" class="w-full h-full absolute top-0 left-0 -z-10 cursor-default outline-none"></form>
 </dialog>
 
+<ImageModal />
+
 <script>
-    const dialogs = document.querySelectorAll('dialog')
-    dialogs.forEach((dialog) => {
-        dialog.addEventListener('click', (e) => {
-            if (e.target === dialog) {
-                dialog.close()
+    const projectModals = document.querySelectorAll('.project-modal')
+
+    projectModals.forEach((modal) => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                ;(modal as HTMLDialogElement).close()
             }
         })
-        dialog.addEventListener('close', () => {
+        modal.addEventListener('close', () => {
             document.body.classList.remove('overflow-hidden')
         })
+
+        const contentArea = modal.querySelector('.prose')
+        const zoomModal = modal.nextElementSibling as HTMLDialogElement
+        const zoomImage = zoomModal?.querySelector('.zoom-target-image') as HTMLImageElement
+
+        if (contentArea && zoomModal && zoomImage) {
+            contentArea.addEventListener('click', (e) => {
+                const target = e.target as HTMLElement
+
+                if (target.tagName === 'IMG') {
+                    const imgSrc = (target as HTMLImageElement).src
+                    const imgAlt = (target as HTMLImageElement).alt
+
+                    zoomImage.src = imgSrc
+                    zoomImage.alt = imgAlt
+                    zoomModal.showModal()
+                }
+            })
+
+            zoomModal.addEventListener('click', (e) => {
+                if (e.target === zoomModal) {
+                    zoomModal.close()
+                }
+            })
+        }
     })
 </script>

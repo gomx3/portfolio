@@ -1,0 +1,19 @@
+---
+import { X } from 'lucide-react'
+---
+
+<dialog
+    class="image-zoom-modal fixed inset-0 z-60 w-full h-full max-w-none max-h-none bg-transparent backdrop:bg-black/50 m-0 outline-none"
+>
+    <div class="w-full h-full flex items-center justify-center p-4 relative" onclick="this.parentElement.close()">
+        <img
+            src=""
+            alt="Enlarged view"
+            class="zoom-target-image max-w-5xl max-h-full object-contain rounded-md shadow-2xl"
+        />
+
+        <button class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors cursor-pointer">
+            <X size={32} />
+        </button>
+    </div>
+</dialog>
