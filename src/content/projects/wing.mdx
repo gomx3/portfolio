@@ -41,11 +41,13 @@ image:
         - **문제:** 노드와 링크의 가중치(weight) 편차(최소값 vs 최대값)가 커서, 단순히 값을 픽셀로 변환하면 너무 작거나 큰 요소가 생겨 시인성이 떨어졌습니다.
         - **해결:** 데이터의 최소/최대값을 구해 0 ~ 1 사이로 정규화(Min-Max 정규화)한 뒤, 이를 기반으로 적절한 픽셀 범위(노드: 15px ~ 45px, 링크 두께: 2px ~ 6px)로 매핑하는 로직을 구현하여 데이터 왜곡 없이 시각적 균형을 맞췄습니다.
 
+### 데모 영상
 
-### 예시 사진
-
-![서비스 예시 1](/assets/images/wing/wing1.png)
-
-![서비스 예시 2](/assets/images/wing/wing2.png)
-
-![서비스 예시 3](/assets/images/wing/wing3.png)
+<iframe
+    class="youtube-iframe w-full aspect-video rounded-lg mx-auto max-w-md"
+    src="https://www.youtube.com/embed/lKin71nWOY0?autoplay=0&mute=1" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen
+></iframe>
