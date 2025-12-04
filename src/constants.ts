@@ -48,7 +48,7 @@ export const STACK = {
         {
             label: '환경 및 배포',
             data: [
-                { src: '/assets/logos/github.svg', name: 'GitHub, GithHub Actions' },
+                { src: '/assets/logos/github.svg', name: 'GitHub, GitHub Actions' },
                 { src: '/assets/logos/vercel.svg', name: 'Vercel Deploy' },
                 { src: '/assets/logos/vite.svg', name: 'Vite' },
                 { src: '/assets/logos/github.svg', name: 'pnpm workspace' },
