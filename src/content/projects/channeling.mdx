@@ -1,6 +1,6 @@
 ---
 id: 1
-title: '채널링 SaaS 개발 및 유지보수'
+title: '유튜브 채널 맞춤형 리포트 생성 사이트'
 description: '조회수·채널 성장이 고민인 유튜버, 마케터를 위한 서비스로, 채널 데이터와 영상을 분석해 맞춤형 리포트 및 콘텐츠 아이디어를 제공하는 SaaS 입니다. 프론트엔드 파트 리드로 참여했습니다.'
 techStack: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Tanstack Query', 'Zustand', 'Chart.js', 'Motion']
 team: 'FE 인원 총 4명'
@@ -11,7 +11,7 @@ links:
         url: 'https://github.com/channeling-ai/FE'
     demo:
         name: '채널링 사이트'
-        url: 'https://channeling.it.com'
+        url: 'https://chaneling.com'
 image:
     url: '/assets/images/channeling/thumbnail.png'
     alt: '채널링 썸네일'
@@ -35,7 +35,7 @@ image:
         1. 이벤트 바인딩: `scroll` 및 `resize` 이벤트 리스너를 등록하여 뷰포트 변화를 감지하도록 구현했습니다. 특히 스크롤 이벤트는 캡처링(Capture) 단계에서 감지하여 부모 컨테이너의 스크롤까지 놓치지 않도록 했습니다.
         2. 좌표 재계산 로직: `getBoundingClientRect()`를 활용해 Canvas의 실시간 뷰포트 상대 좌표를 구하고, 이를 기반으로 툴팁의 `top`, `left` 값을 갱신하여 차트와 완벽하게 동기화되도록 만들었습니다.
     - **결과**: 다양한 해상도와 스크롤 환경에서도 툴팁이 차트의 특정 세그먼트에 정확히 고정되어, 사용자에게 이질감 없는 매끄러운 인터랙션 경험을 제공했습니다.
-    ![도넛 차트 툴팁 예시](/assets/images/channeling/donut-tooltip.png)
+      ![도넛 차트 툴팁 예시](/assets/images/channeling/donut-tooltip.png)
 
 2. **좌표 동기화 로직의 렌더링 성능 최적화 (rAF)**
     - **문제**: 앞서 구현한 실시간 좌표 동기화 로직은 `scroll`과 `resize` 이벤트를 기반으로 동작합니다. 하지만 이들은 짧은 시간에 수백 번 트리거되는 이벤트이기 때문에, 매번 getBoundingClientRect()를 호출하여 리플로우(Reflow)를 유발할 경우 **메인 스레드에 과부하가 걸려 화면이 버벅거리는 현상**이 발생할 위험이 있었습니다.
@@ -51,6 +51,6 @@ image:
     - **결과**: 탭 전환 시 발생하던 중복 요청을 원천 차단하여 API 요청 수를 35% 감소시켰으며, 이에 따라 데이터 전송량을 42% 절감하는 성과를 달성했습니다.
 
 ### 배운 점
-    
+
     - 시각화 대시보드 내의 다양한 사용자 인터랙션을 구현하며, 복잡한 데이터 흐름을 제어하고 예측 가능한 UI를 만들기 위한 상태 관리 패턴의 중요성을 깊이 이해했습니다.
     - 프론트엔드 리드로서 명확한 업무 분배와 건강한 코드 리뷰 문화를 주도하는 방법을 배울 수 있었습니다. 팀원들의 적극적인 기술 논의를 이끌어내고, 개인의 성장이 프로젝트의 완성도로 이어지는 '동반 성장'의 가치를 실현했습니다.
